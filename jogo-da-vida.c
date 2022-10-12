@@ -1,4 +1,11 @@
 #include <stdio.h>
+#ifdef _WIN32
+    #include <windows.h>
+    #define LIMPA "cls"
+#else
+    #define LIMPA "clear"
+#endif
+
 #define TAMANHO 15
 
 void imprimeTabuleiro(int tabuleiro[TAMANHO][TAMANHO]);
@@ -16,9 +23,9 @@ int main()
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,
+        0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -27,12 +34,17 @@ int main()
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     };
-
-    imprimeTabuleiro(vida);
-    jogaJogo(vida);
-    printf("-------------------------------\n");
-    imprimeTabuleiro(vida);
-    printf("\n%d -> %d", vida[0][2], calculaVizinhos(vida, 0, 2));
+    int ciclos = 10;
+    int i;
+    for(i = 0; i < ciclos; i++)
+    {
+        system(LIMPA);
+        imprimeTabuleiro(vida);
+        printf("Ciclo = %d", i);
+        Sleep(500);
+        jogaJogo(vida);
+    }
+    return 0;
 }
 
 void imprimeTabuleiro(int tabuleiro[TAMANHO][TAMANHO])
