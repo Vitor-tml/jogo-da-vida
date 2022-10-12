@@ -7,7 +7,7 @@
 
 Este repositório tem a intenção de implementar o jogo e suas regras em um programa em C para fins acadêmicos.
 
-### Objetivos
+### Objetivos:
 
 - [x] Lógica do jogo.
 - [ ] Entrada de usuário.
