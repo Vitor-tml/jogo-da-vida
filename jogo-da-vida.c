@@ -2,14 +2,16 @@
 #define TAMANHO 15
 
 void imprimeTabuleiro(int tabuleiro[TAMANHO][TAMANHO]);
+void copiaTabuleiro(int tab1[TAMANHO][TAMANHO], int tab2[TAMANHO][TAMANHO]);
 int calculaVizinhos(int tabuleiro[TAMANHO][TAMANHO], int x, int y);
-void sobrevivencia(int tabuleiro[TAMANHO][TAMANHO], int x, int y);
+int sobrevivencia(int tabuleiro[TAMANHO][TAMANHO], int x, int y);
+void jogaJogo(int tabuleiro[TAMANHO][TAMANHO]);
 
 int main()
 {
     int vida[TAMANHO][TAMANHO] = {
-        0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
-        0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -27,7 +29,7 @@ int main()
     };
 
     imprimeTabuleiro(vida);
-    sobrevivencia(vida, 0, 2);
+    jogaJogo(vida);
     printf("-------------------------------\n");
     imprimeTabuleiro(vida);
     printf("\n%d -> %d", vida[0][2], calculaVizinhos(vida, 0, 2));
@@ -69,14 +71,38 @@ int calculaVizinhos(int tabuleiro[TAMANHO][TAMANHO], int x, int y)
     return vizinhos;
 }
 
-void sobrevivencia(int tabuleiro[TAMANHO][TAMANHO], int x, int y)
+int sobrevivencia(int tabuleiro[TAMANHO][TAMANHO], int x, int y)
 {
     int vizinhos = calculaVizinhos(tabuleiro, x, y);
     int estado = tabuleiro[x][y];
 
     if(estado)
-        tabuleiro[x][y] = (vizinhos == 2 || vizinhos == 3)? 1: 0;
+        return (vizinhos == 2 || vizinhos == 3)? 1: 0;
     else
-        tabuleiro[x][y] = (vizinhos >= 3)? 1: 0;
+        return (vizinhos >= 3)? 1: 0;
     return;
+}
+
+void jogaJogo(int tabuleiro[TAMANHO][TAMANHO])
+{
+    int temp[TAMANHO][TAMANHO];
+    int i, j;
+
+    for ( i = 0; i < TAMANHO; i++)
+        for ( j = 0; j < TAMANHO; j++)
+            temp[i][j] = sobrevivencia(tabuleiro, i, j);
+    
+    copiaTabuleiro(tabuleiro, temp);
+    return 0;
+}
+
+void copiaTabuleiro(int tab1[TAMANHO][TAMANHO], int tab2[TAMANHO][TAMANHO])
+{
+    int i, j;
+
+    for ( i = 0; i < TAMANHO; i++)
+        for ( j = 0; j < TAMANHO; j++)
+            tab1[i][j] = tab2[i][j];
+
+    return;   
 }
