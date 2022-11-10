@@ -12,7 +12,5 @@ Este repositório tem a intenção de implementar o jogo e suas regras em um pro
 - [x] Lógica do jogo.
 - [ ] Entrada de usuário.
 - [ ] Tabuleiro de tamanho dinâmico.
-- [ ] Interface gráfica.
-- [ ] Interação com mouse.
 - [ ] Pause entre gerações.
 - [ ] Estruturas pré-prontas.
