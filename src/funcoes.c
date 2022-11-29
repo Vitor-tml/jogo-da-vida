@@ -1,8 +1,13 @@
 #include <stdlib.h>
+#include "funcoes.h"
+
+// Códigos de escape ASCII para as cores
 #define SELEC "\x1B[46;1m"
 #define MORTO "\x1B[0;31m"
 #define VIVO "\x1B[0;31m"
 #define RESET "\x1B[0m"
+
+
 
 // Aloca uma matriz por valor passando o numero de linhas e colunas.
 int **alocaMatriz(int nl, int nc)
