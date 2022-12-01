@@ -53,15 +53,16 @@ void jogaJogoVida(int **mAtual, int nL, int nC, int nCiclos) // Jogo real
     // getchar();
     Sleep(100);     //*========== Adaptar para win e linux
 
-    mAnt = alocaMatriz(nL, nC); 
-
+    mAnt = alocaMatriz(nL, nC);
     for (c = 1; c <= nCiclos; c++)
-    {
+    { 
         copiaMatriz(mAnt, mAtual, nL, nC);
+        printf("Chegei aqui2"); //========================================== Nao está chegando aqui
+        getchar();
         atualizaMat(mAtual, mAnt, nL, nC); //===== REGRAS do jogo
         system("cls");                      //====== Mudar para compatível com as duas plataformas
         imprimeMatriz(mAtual, nL, nC, 0, 0, 0);
-        // getchar();
+        getchar();
         Sleep(100);
     }
     desalocaMatriz(mAnt, nL);

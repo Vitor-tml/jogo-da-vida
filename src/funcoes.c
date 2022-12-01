@@ -4,9 +4,8 @@
 // Códigos de escape ASCII para as cores
 #define SELEC "\x1B[46;1m"
 #define MORTO "\x1B[0;31m"
-#define VIVO "\x1B[0;31m"
+#define VIVO "\x1B[0;32m"
 #define RESET "\x1B[0m"
-
 
 
 // Aloca uma matriz por valor passando o numero de linhas e colunas.
@@ -71,8 +70,6 @@ void copiaMatriz(int **m1, int **m2, int nl, int nc)
     for ( i = 0; i < nl; i++)
         for ( j = 0; j < nc; j++)
             m1[i][j] = m2[i][j];
-
-    return;   
 }
 // Calcula as células vizinhas de tabuleiro[x][y].
 int calculaVizinhos(int **celula, int nl, int nc, int x, int y)
