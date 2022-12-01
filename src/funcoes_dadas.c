@@ -1,6 +1,8 @@
 #include "funcoes_dadas.h"
+#include "funcoes.h"
+#define VAZ 0 // Vazio
 
-void limpaMatriz(char **m, int nL, int nC)
+void limpaMatriz(int **m, int nL, int nC)
 {
     int i, j;
     for (i = 0; i < nL; i++)
@@ -8,7 +10,7 @@ void limpaMatriz(char **m, int nL, int nC)
             m[i][j] = VAZ;
 }
 
-void menuInicJogo(char **mat, int nL, int nC)
+void menuInicJogo(int **mat, int nL, int nC)
 {
     int opcao;
 
@@ -33,37 +35,34 @@ void menuInicJogo(char **mat, int nL, int nC)
         break;
     }
 
-    imprimeMatriz(mat, nL, nC); // TO DO
+    imprimeMatriz(mat, nL, nC, 0, 0, 0);
 
     printf("Se inicializacao correta digite qualquer tecla para iniciar o jogo...");
-    while (getchar() != '\n');
+while (getchar() != '\n');
     getchar();
 }
 
 
-void jogaJogoVida(char **mAtual, int nL, int nC, int nCiclos)
+void jogaJogoVida(int **mAtual, int nL, int nC, int nCiclos) // Jogo real
 {
-    char **mAnt;
+    int **mAnt;
     int c;
 
-    // imprimindo na tela a matriz inicial
     system("cls");
-    imprimeMatriz(mAtual, nL, nC); // TO DO
+    imprimeMatriz(mAtual, nL, nC, 0, 0, 0);
     // getchar();
-    Sleep(100);
+    Sleep(100);     //*========== Adaptar para win e linux
 
-    mAnt = alocaMatriz(nL, nC); // TO DO
+    mAnt = alocaMatriz(nL, nC); 
 
     for (c = 1; c <= nCiclos; c++)
     {
-        copiaMatriz(mAnt, mAtual, nL, nC); // TO DO implemente a fun��o que copia uma matriz na outra, equivalendo a mAnt = mAtual;
-
-        atualizaMat(mAtual, mAnt, nL, nC); // TO DO implemente nesta fun��o as regras que atualizam a matriz mAtual conforme o jogo da vida
-                                           // lembre de usar os dados de mAnt como a matriz do jogo no ciclo anterior para atualizar mAtual
-        system("cls");
-        imprimeMatriz(mAtual, nL, nC); // TO DO
+        copiaMatriz(mAnt, mAtual, nL, nC);
+        atualizaMat(mAtual, mAnt, nL, nC); //===== REGRAS do jogo
+        system("cls");                      //====== Mudar para compatível com as duas plataformas
+        imprimeMatriz(mAtual, nL, nC, 0, 0, 0);
         // getchar();
         Sleep(100);
     }
-    desalocaMatriz(mAnt, nL); // TO DO
+    desalocaMatriz(mAnt, nL);
 }

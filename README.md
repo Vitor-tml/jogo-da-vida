@@ -14,3 +14,23 @@ Este repositório tem a intenção de implementar o jogo e suas regras em um pro
 - [ ] Tabuleiro de tamanho dinâmico.
 - [ ] Pause entre gerações.
 - [ ] Estruturas pré-prontas.
+
+## Compilação:
+Para compilar tudo apenas execute o comando 
+Funções:
+```
+gcc -c .\src\funcoes.c -I .\include -o /obj/funcoes.o
+```
+Funções dadas:
+```
+gcc -c ./src/funcoes_dadas.c -I ./include -o /obj/funcoes_dadas.o
+```
+Formas de Vida
+```
+gcc -c .\src\formas_de_vida.c -I .\include -o .\obj\formas_de_vida.o
+```
+Main
+```
+gcc .\programa\main.c .\obj\formas_de_vida.o .\obj\funcoes.o .\obj\funcoes_dadas.o -I .\include -o .\bin\main.exe
+```
+

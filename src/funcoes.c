@@ -32,8 +32,17 @@ int **alocaMatriz(int nl, int nc)
     }
     return m;
 }
+// Desaloca uma matriz passando seu endereço e o numero de linhas
+void desalocaMatriz(int **m, int nl)
+{
+    int i;
+
+    for(i = 0; i < nl; i++)
+        free(m[i]);
+    free(m);
+}
 // Imprime X para as cẽlulas vivas, O para as cẽlulas mortar e muda a cor de fundo da linha/coluna destaque
-void imprimeTabuleiro(int **m, int nl, int nc, int linhaDestaque, int colunaDestaque, int destaque)
+void imprimeMatriz(int **m, int nl, int nc, int linhaDestaque, int colunaDestaque, int destaque)
 {
     int i, j;
 
@@ -55,62 +64,51 @@ void imprimeTabuleiro(int **m, int nl, int nc, int linhaDestaque, int colunaDest
     }
 }
 // Copia o tabuleiro em outra matriz
-void copiaTabuleiro(int **tab1, int **tab2, int nl, int nc)
+void copiaMatriz(int **m1, int **m2, int nl, int nc)
 {
     int i, j;
 
     for ( i = 0; i < nl; i++)
         for ( j = 0; j < nc; j++)
-            tab1[i][j] = tab2[i][j];
+            m1[i][j] = m2[i][j];
 
     return;   
 }
 // Calcula as células vizinhas de tabuleiro[x][y].
-int calculaVizinhos(int **tabuleiro, int nl, int nc, int x, int y)
+int calculaVizinhos(int **celula, int nl, int nc, int x, int y)
 {
-    int estado, vizinhos;
+    int vizinhos;
 
-    estado = tabuleiro[x][y];
-    tabuleiro[x][y] = 0;
+    vizinhos =  celula[x - 1][y - 1] * (x!=0) * (y != 0)             +
+                celula[x - 1][y]     * (x!=0)                        +
+                celula[x - 1][y + 1] * (x!=0) * (y != nc - 1)        +
 
-    vizinhos =  tabuleiro[x - 1][y - 1] * (x!=0) * (y != 0)             +
-                tabuleiro[x - 1][y]     * (x!=0)                        +
-                tabuleiro[x - 1][y + 1] * (x!=0) * (y != nc - 1)        +
+                celula[x][y - 1] * (y != 0)                          +           
+                celula[x][y + 1] * (y != nc - 1)                     +
 
-                tabuleiro[x][y - 1] * (y != 0)                          +           
-                tabuleiro[x][y + 1] * (y != nc - 1)                     +
-
-                tabuleiro[x + 1][y - 1] * (x != nl - 1) * (y != 0)      +
-                tabuleiro[x + 1][y]     * (x != nl - 1)                 +
-                tabuleiro[x + 1][y + 1] * (x != nl - 1) * (y != nc - 1);
+                celula[x + 1][y - 1] * (x != nl - 1) * (y != 0)      +
+                celula[x + 1][y]     * (x != nl - 1)                 +
+                celula[x + 1][y + 1] * (x != nl - 1) * (y != nc - 1);
     
-    tabuleiro[x][y] = estado;
     return vizinhos;
 }
-// Calcula se a cálula tabuleiro[x][y] vai estar viva na próxima geração.
-int sobrevivencia(int **tabuleiro, int nl, int nc, int x, int y)
+// Calcula se uma célula vai viver ou morrer de acordo com o estado atual e os vizinhos
+int sobrevivencia(int estado, int vizinhos)
 {
-    int vizinhos = calculaVizinhos(tabuleiro, nl, nc, x, y);
-    int estado = tabuleiro[x][y];
-
     if(estado)
         return (vizinhos == 2 || vizinhos == 3)? 1: 0;
     else
-        return (vizinhos >= 3)? 1: 0;
+        return (vizinhos == 3)? 1: 0;
 }
-// Calcula próxima geração e escreve no tabuleiro atual
-void jogaJogo(int **tabuleiro, int nl, int nc)
+// Aplica as regras do jogo no tabuleiro
+void atualizaMat(int **mAtual, int **mAnt, int nl, int nc)
 {
-    int **temp;
-    int i, j;
+    int i, j, vizinhos;
 
-    temp = alocaMatriz(nl, nc);
-    for ( i = 0; i < nl; i++)
-        for ( j = 0; j < nc; j++)
-            temp[i][j] = sobrevivencia(tabuleiro, nl, nc, i, j);
-    
-    copiaTabuleiro(tabuleiro, temp, nl, nc);
-    free(temp);
+    for(i = 0; i < nl; i++)
+        for(j = 0; j < nc; j++)
+        {
+            vizinhos = calculaVizinhos(mAnt, nl, nc, i, j);
+            mAtual[i][j] = sobrevivencia(mAnt[i][j], vizinhos);
+        }
 }
-//
-void leCelula(int **tabuleiro, )
