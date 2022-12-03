@@ -1,5 +1,5 @@
-#ifndef _FUNCOES_
-#define _FUNCOES_
+#ifndef _FUNCOESDADAS_
+#define _FUNCOESDADAS_
 
 void limpaMatriz(int **m, int nL, int nC);
 void menuInicJogo(int **mat, int nL, int nC);

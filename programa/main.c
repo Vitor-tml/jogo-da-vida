@@ -12,38 +12,49 @@
 #define LIMPA "clear"
 #endif
 
-#define ORG 1 // Organismo
-#define VAZ 0 // Vazio
+#define ORG 1   // Organismo
+#define VAZ 0   // Vazio
 #define TAM 101 // Tamanho do nome do jogo.
 
-typedef struct tab
-{                       // implementar como TAD, o tupedef fica no .h
-    char nomeJogo[TAM]; // o nome do jogo deve ser relativo ao padrao
-                        // de inicializacao. Por exemplo, JogoSapo ou JogoBloco
-    int ciclosVida;     // Define quanto cada jogo vai rodar (ciclos)
-    int dim1, dim2;     // dimensoes do tabuleiro linhas x colunas
-    char **m;           // Atenção! Essa matriz terá que ser alocada dinamicamente
-                        // para que a funcao que inicializa possa funcionar
-} Tab;
 
 int main()
 {
-    int **mat;
+    int menu;           // Opções do menu
+    int jogo = 1;       // Flag do loop do jogo
+    Tabuleiro tab;
 
-    int nl = 20, nc = 20, nCiclos = 50;
-    int jogando = 1;
-    mat = alocaMatriz(nl, nc);
+    alocaMatriz(&tab);
 
-    printf("Entre com o tamanho do tabuleiro: ");
-    scanf("%d %d", &nl, &nc);
-    printf("Entre com o numero de cilcos: ");
-    scanf("%d", &nCiclos);
-
-    do // Loop de vários jogos, até que o usuário queira sair.
+    printf("Iniciando o Jogo da Vida");
+    Sleep();
+    
+    while (jogo)
     {
-        menuInicJogo(mat, nl, nc);
-        jogaJogoVida(mat, nl, nc, nCiclos); // Joga e exibe 1 jogo na tela.
-    } while (jogando); //========================= criar essa variável
+        system("clear"); // Coloar o LIMPA
+        asciiArt();
 
-    desalocaMatriz(mat, nl);
+        menu = estruturaMenu(nl, nc, nc, nomePadrao); // Mudar para struct
+
+        switch (menu)
+        {
+        case 1: /// Muda tamanho do tabuleiro
+            mudaTamanho();
+        break;
+
+        case 2: // Muda padrão de inicialização
+            mudaPadrao();
+        break;
+
+        case 3: // Entra no jogo
+            jogaJogoVida();         
+        break;
+
+        default:
+            printf("Saindo.\n");
+            jogo = 0;
+        break;
+        }
+    }
+
+    return 0;
 }

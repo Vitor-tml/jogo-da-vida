@@ -11,7 +11,7 @@
 #define LIMPA "clear"
 #endif
 
-
+#define ORG 1 // Organismo
 #define VAZ 0 // Vazio
 
 void limpaMatriz(int **m, int nL, int nC)
