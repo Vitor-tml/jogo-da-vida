@@ -1,5 +1,17 @@
+#include <stdio.h>
 #include "funcoes_dadas.h"
 #include "funcoes.h"
+#include "formas_de_vida.h"
+
+#ifdef _WIN32
+#include <Windows.h>
+#define LIMPA "cls"
+#else
+#include <unistd.h>
+#define LIMPA "clear"
+#endif
+
+
 #define VAZ 0 // Vazio
 
 void limpaMatriz(int **m, int nL, int nC)
@@ -9,7 +21,7 @@ void limpaMatriz(int **m, int nL, int nC)
         for (j = 0; j < nC; j++)
             m[i][j] = VAZ;
 }
-
+/*
 void menuInicJogo(int **mat, int nL, int nC)
 {
     int opcao;
@@ -18,30 +30,30 @@ void menuInicJogo(int **mat, int nL, int nC)
     scanf("%d", &opcao);
     switch (opcao)
     {
-    case 1:
-        inicBloco(mat, nL, nC);
-        break;
-    case 2:
-        inicBlinker(mat, nL, nC);
-        break;
-    case 3:
-        inicSapo(mat, nL, nC);
-        break;
-    case 4:
-        inicGlider(mat, nL, nC);
-        break;
-    case 5:
-        inicLWSS(mat, nL, nC);
-        break;
+        case 1:
+            inicBloco(mat, nL, nC);
+            break;
+        case 2:
+            inicBlinker(mat, nL, nC);
+            break;
+        case 3:
+            inicSapo(mat, nL, nC);
+            break;
+        case 4:
+            inicGlider(mat, nL, nC);
+            break;
+        case 5:
+            inicLWSS(mat, nL, nC);
+            break;
     }
 
     imprimeMatriz(mat, nL, nC, 0, 0, 0);
 
     printf("Se inicializacao correta digite qualquer tecla para iniciar o jogo...");
-while (getchar() != '\n');
-    getchar();
+    while (getchar() != '\n');
+        getchar();
 }
-
+*/
 
 void jogaJogoVida(int **mAtual, int nL, int nC, int nCiclos) // Jogo real
 {
@@ -57,12 +69,10 @@ void jogaJogoVida(int **mAtual, int nL, int nC, int nCiclos) // Jogo real
     for (c = 1; c <= nCiclos; c++)
     { 
         copiaMatriz(mAnt, mAtual, nL, nC);
-        printf("Chegei aqui2"); //========================================== Nao está chegando aqui
-        getchar();
         atualizaMat(mAtual, mAnt, nL, nC); //===== REGRAS do jogo
         system("cls");                      //====== Mudar para compatível com as duas plataformas
         imprimeMatriz(mAtual, nL, nC, 0, 0, 0);
-        getchar();
+        // getchar(); // Pausa a cada geração
         Sleep(100);
     }
     desalocaMatriz(mAnt, nL);
