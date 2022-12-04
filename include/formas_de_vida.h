@@ -1,10 +1,11 @@
 #ifndef _FORMAS_DE_VIDA
 #define _FORMAS_DE_VIDA
 
-void inicBlinker(int **m, int nL, int nC);
-void inicBloco(int **m, int nL, int nC);
-void inicSapo(int **m, int nL, int nC);
-void inicGlider(int **m, int nL, int nC);
-void inicLWSS(int **m, int nL, int nC);
+void inicBloco(Tabuleiro*bloco);
+void inicColmeia(Tabuleiro*colmeia);
+void inicBlinker(Tabuleiro*blinker);
+void inicBlinker(Tabuleiro*sapo);
+void inicBlinker(Tabuleiro*glider);
+void inicBlinker(Tabuleiro*LWSS);
 
 #endif

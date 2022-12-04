@@ -20,7 +20,7 @@
 #define RESET "\x1B[0m"
 
 // Aloca uma matriz por valor passando o numero de linhas e colunas.
-void alocaMatriz(Tabuleiro tab)
+void alocaMatriz(Tabuleiro*tab)
 {
     int i;
 
@@ -157,7 +157,7 @@ int estruturaMenu(Tabuleiro tab)
     return opcaoMenu;
 }
 // Inicia padrões do jogo
-void menuInicJogo()
+void menuInicJogo(Tabuleiro*tab)
 {
     int tipodeVida, vida;
     printf("\n=> Tipos de padrões iniciais disponíveis:\n\n");
@@ -171,15 +171,15 @@ void menuInicJogo()
         scanf("%d", &vida);
         switch (vida)
         {
-        case 1:
-            strcpy(nomePadrao, "Bloco");
-            // inicBloco(mat, nl, nc); => criar uma variável para exportar o tipo
+        case 1: // Opcao Bloco
+            strcpy(tab->nomeJogo, "Bloco");
+            inicBloco(&tab);
             break;
-        case 2:
-            strcpy(nomePadrao, "Colmeia");
-            // inicColmeia(mat, nl, nc);  => criar uma variável para exportar o
+        case 2: // Opcao Colmeia
+            strcpy(tab->nomeJogo, "Colmeia");
+            inicBloco(&tab);
             break;
-        default:
+        default: // Invalido
             printf("Encolha inválida.\n") break;
         }
         break;
@@ -189,15 +189,15 @@ void menuInicJogo()
         scanf("%d", &vida);
         switch (vida)
         {
-        case 1:
-            strcpy(nomePadrao, "Blinker");
-            // inicBlinker(mat, nl, nc); => criar uma variável para exportar o
+        case 1: //Opcao Blinker
+            strcpy(tab->nomeJogo, "Blinker");
+            inicBlinker(&tab);
             break;
-        case 2:
-            strcpy(nomePadrao, "Sapo");
-            // inicSapo(mat, nl, nc); => criar uma variável para exportar o tipo
+        case 2: // Opcao Sapo
+            strcpy(tab->nomeJogo, "Sapo");
+            inicBlinker(&tab);
             break;
-        default:
+        default: 
             printf("Escolha inválida.\n");
             break;
         }
@@ -208,15 +208,15 @@ void menuInicJogo()
         scanf("%d", &opcao3);
         switch (opcao3)
         {
-        case 1:
-            strcpy(nomePadrao, "Glinder");
-            // inicGlider(mat, nl, nc); => criar uma variável para exportar o tipo
+        case 1: // Opcao Glider
+            strcpy(tab->nomeJogo, "Glinder");
+            inicBlinker(&tab);
             break;
-        case 2:
-            strcpy(nomePadrao, "LWSS");
-            // inicLWSS(mat, nl, nc); => criar uma variável para exportar o tipo
+        case 2: // Opcao LWSS
+            strcpy(tab->nomeJogo, "LWSS");
+            inicBlinker(&tab);
             break;
-        default:
+        default: 
             printf("Escolha inválida.\n");
             break;
         }
@@ -228,13 +228,13 @@ void menuInicJogo()
 }
 
 // Edita tamanho do tabuleiro
-void mudaTamanho()
+void mudaTamanho(Tabuleiro*tab)
 {
     printf("Insira o numero de linhas: ");
-    scanf("%d", &nl);
+    scanf("%d", tab->nl);
     printf("Insira o numero de colunas: ");
-    scanf("%d", &nc);
+    scanf("%d", tab->nc);
     printf("Insira o numero de ciclos: ");
-    scanf("%d", &nciclos);
+    scanf("%d", tab->nciclos);
     printf("\n\n");
 }

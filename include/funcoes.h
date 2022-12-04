@@ -1,25 +1,25 @@
 #ifndef _FUNCOES_
 #define _FUNCOES_
 
-int **alocaMatriz(int nl, int nc);
-void desalocaMatriz(int **m, int nl);
-void imprimeMatriz(int **m, int nl, int nc, int linhaDestaque, int colunaDestaque, int destaque);
+void alocaMatriz(Tabuleiro*tab)
+void desalocaMatriz(int **m, int nl); //  Exista um funcao desalocaTabuleiro em funcao.c
+void imprimeMatriz(Tabuleiro tab, int linhaDestaque, int colunaDestaque, int destaque);
 int sobrevivencia(int estado, int vizinhos);
-void copiaMatriz(int **m1, int **m2, int nl, int nc);
-int calculaVizinhos(int **tabuleiro, int nl, int nc, int x, int y);
-void atualizaMat(int **mAtual, int **mAnt, int nl, int nc);
+void copiaMatriz(int **m, Tabuleiro tab);
+int calculaVizinhos(Tabuleiro celula, int x, int y);
+void atualizaMat(Tabuleiro tab, int **novaGeracao);
 
 void asciiArt();
-int estruturaMenu(int nl, int nc, int nciclos, char nomePadrao[TAM])
-void mudaPadrao();
-void mudaTamanho();
+int estruturaMenu(Tabuleiro tab);
+void menuInicJogo(Tabuleiro*tab); 
+void mudaTamanho(Tabuleiro*tab);
 
 typedef struct tab // Testar se essa declaração com valor funciona
 {
-    char nomeJogo[TAM] = "nenhum";
-    int ciclosVida = 50;
-    int nl = 15;
-    int nc = 15;
+    char nomeJogo[TAM];
+    int ciclosVida;
+    int nl;
+    int nc;
     int **m;
 } Tabuleiro;
 
