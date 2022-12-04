@@ -14,12 +14,12 @@
 #define ORG 1 // Organismo
 #define VAZ 0 // Vazio
 
-void limpaMatriz(int **m, int nL, int nC)
+void limpaMatriz(Tabuleiro tab)
 {
     int i, j;
-    for (i = 0; i < nL; i++)
-        for (j = 0; j < nC; j++)
-            m[i][j] = VAZ;
+    for (i = 0; i < tam.nL; i++)
+        for (j = 0; j < tam.nC; j++)
+            tab.m[i][j] = VAZ;
 }
 /*
 void menuInicJogo(int **mat, int nL, int nC)
