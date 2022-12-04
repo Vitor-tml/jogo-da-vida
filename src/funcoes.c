@@ -137,18 +137,20 @@ void asciiArt()
 int estruturaMenu(Tabuleiro tab)
 {
     int opcaoMenu;
+    int nome[22];
+    int barra = 186;
     asciiArt();
-    printf("|=======================|\n");
-    printf("|         MENU          |\n");
-    printf("|          DE           |\n");
-    printf("|     CONFIGURACOES     |\n");
-    printf("|-----------------------|\n");
-    printf("|n linhas  = %d          |\n", tab.nl);
-    printf("|n colunas = %d          |\n", tab.nc);
-    printf("|n ciclos  = %d          |\n", tab.nciclos);
-    printf("|Tipo de padrao inicial:|\n");
-    printf("\t%s\t\n", tab.NomeJogo);
-    printf("|_______________________|\n\n");
+
+    printbarra(23, 1);    
+    printf("%c          DE           %c\n", barra, barra);
+    printf("%c     CONFIGURACOES     %c\n", barra, barra);
+    printbarra(23, 2);
+    printf("%cn linhas  = %d          %c\n", barra, tab.nl, barra);
+    printf("%cn colunas = %d          %c\n", barra, tab.nc, barra);
+    printf("%cn ciclos  = %d          %c\n", barra, tab.nciclos, barra);
+    printf("%cTipo de padrao inicial:%c\n", barra, barra);
+    printf("%c%s%c", centerAlignText(nome, 22, barra, tab.nomeJogo, barra));
+    printbarra(23, 3);
 
     printf("\n Escolha as opções de configuracao do Jogo da Vida.\n\n ");
     printf("\t(1) Mudar linhas, colunas e ciclos\n\t(2) Mudar padrão inicial\n\t(3) Iniciar Jogo\n(4) Sair");
@@ -238,4 +240,43 @@ void mudaTamanho()
     printf("Insira o numero de ciclos: ");
     scanf("%d", &nciclos);
     printf("\n\n");
+}
+
+const char *centerAlignText(char *field, unsigned int fieldWidth, const char *text)
+{
+    if (fieldWidth == 0 || field == NULL) return "";
+
+    fieldWidth--;
+    unsigned int len = strlen(text);
+    unsigned int padding = fieldWidth > len ? (fieldWidth+1 - len)/2 : 0;
+    sprintf(field, "%*s%.*s%*s", padding, "", fieldWidth-1, text, padding>0 && len%2!=fieldWidth%2 ? padding-1 : padding, "");
+
+    return (const char *)field;
+}
+void printbarra(int n, int tipo)
+{
+    int i = 0;
+    int primeiro, segundo, barra = 205;
+    print(VIVO);
+    if(tipo == 1)
+    {
+        primeiro = 201;
+        segundo = 187;
+    }
+    if(tipo == 2)
+    {
+        primeiro = 204;
+        segundo = 185;
+    }
+    if(tipo == 3)
+    {
+        primeiro = 200;
+        segundo = 188;
+    }
+    printf("%c", primeiro);
+    for(i = 0; i < n; i++)
+        printf("%c", barra);
+    printf("%c", segundo);
+    printf("\n");
+    print(RESET);
 }

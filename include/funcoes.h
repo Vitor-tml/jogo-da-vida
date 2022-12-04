@@ -10,6 +10,8 @@ int calculaVizinhos(int **tabuleiro, int nl, int nc, int x, int y);
 void atualizaMat(int **mAtual, int **mAnt, int nl, int nc);
 
 void asciiArt();
+const char *centerAlignText(char *field, unsigned int fieldWidth, const char *text);
+void printbarra(int n, int tipo);
 int estruturaMenu(int nl, int nc, int nciclos, char nomePadrao[TAM])
 void mudaPadrao();
 void mudaTamanho();
