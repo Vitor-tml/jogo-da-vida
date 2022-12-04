@@ -38,15 +38,15 @@ int main()
         switch (menu)
         {
         case 1: /// Muda tamanho do tabuleiro
-            mudaTamanho();
+            mudaTamanho(tab);
         break;
 
         case 2: // Muda padrão de inicialização
-            mudaPadrao();
+            menuInicJogo(tab);
         break;
 
         case 3: // Entra no jogo
-            jogaJogoVida();         
+            jogaJogoVida(tab);         
         break;
 
         default:

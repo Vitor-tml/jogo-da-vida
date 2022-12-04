@@ -55,7 +55,7 @@ void menuInicJogo(int **mat, int nL, int nC)
 }
 */
 
-void jogaJogoVida(int **mAtual, int nL, int nC, int nCiclos) // Jogo real
+void jogaJogoVida(tab) // Jogo real
 {
     int **mAnt;
     int c;

@@ -1,6 +1,6 @@
 #include "formas_de_vida.h"
 #include "funcoes_dadas.h"
-
+#include "funcoes.h"
 #define ORG 1 // Organismo
 #define VAZ 0 // Vazio
 
@@ -30,6 +30,21 @@ void inicBloco(Tabuleiro *bloco)
         for (j = 0; j < 2; j++)
             bloco->m[xInic + i][yInic + j] = padrao[i][j];
 }
+
+void inicColmeia(Tabuleiro *colmeia)
+{
+    int padrao[4][3] = {{VAZ, ORG, ORG,VAZ},
+                         {ORG, VAZ, VAZ, ORG}
+                        {VAZ, ORG, ORG, VAZ}};
+    int i, j, xInic = colmeia->nL / 2, yInic = colmeia->nC / 2;
+
+    limpaMatriz(&colmeia);
+
+    for (i = 0; i < 4; i++)
+        for (j = 0; j < 3; j++)
+            bloco->m[xInic + i][yInic + j] = padrao[i][j];
+}
+
 
 void inicSapo(Tabuleiro *sapo)
 {
