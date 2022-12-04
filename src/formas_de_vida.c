@@ -4,63 +4,65 @@
 #define ORG 1 // Organismo
 #define VAZ 0 // Vazio
 
-void inicBlinker(int **m, int nL, int nC)
+
+  
+void inicBlinker(Tabuleiro *blinker)
 {
     int padrao[1][3] = {{ORG, ORG, ORG}};
-    int i, j, xInic = nL / 2, yInic = nC / 2;
+    int i, j, xInic = blinker->nl / 2, yInic = blinker->nc / 2;
 
-    limpaMatriz(m, nL, nC);
+    limpaMatriz(&blinker);
 
     for (i = 0; i < 1; i++)
         for (j = 0; j < 3; j++)
-            m[xInic + i][yInic + j] = padrao[i][j];
+            blinker->m[xInic + i][yInic + j] = padrao[i][j];
 }
 
-void inicBloco(int **m, int nL, int nC)
+void inicBloco(Tabuleiro *bloco)
 {
     int padrao[2][2] = {{ORG, ORG},
                          {ORG, ORG}};
-    int i, j, xInic = nL / 2, yInic = nC / 2;
+    int i, j, xInic = bloco->nL / 2, yInic = bloco->nC / 2;
 
-    limpaMatriz(m, nL, nC);
+    limpaMatriz(&bloco);
 
     for (i = 0; i < 2; i++)
         for (j = 0; j < 2; j++)
-            m[xInic + i][yInic + j] = padrao[i][j];
+            bloco->m[xInic + i][yInic + j] = padrao[i][j];
 }
 
-void inicSapo(int **m, int nL, int nC)
+void inicSapo(Tabuleiro *sapo)
 {
 
     int padrao[2][4] = {{VAZ, ORG, ORG, ORG},
                         {ORG, ORG, ORG, VAZ}};
-    int i, j, xInic = nL / 2, yInic = nC / 2;
+    int i, j, xInic = sapo->nL / 2, yInic = sapo->nC / 2;
 
-    limpaMatriz(m, nL, nC);
+    limpaMatriz(&sapo);
 
     for (i = 0; i < 2; i++)
         for (j = 0; j < 4; j++)
-            m[xInic + i][yInic + j] = padrao[i][j];
+            sapo->m[xInic + i][yInic + j] = padrao[i][j];
 }
 
-void inicGlider(int **m, int nL, int nC)
+void inicGlider(Tabuleiro *glider)
 {
     int padrao[3][3] = {{ORG, ORG, ORG},
                         {ORG, VAZ, VAZ},
                          {VAZ, ORG, VAZ}};
     int i, j, xInic, yInic;
 
-    limpaMatriz(m, nL, nC);
+    limpaMatriz(&glider);
 
-    xInic = nL - 4;
-    yInic = nC - 4;
+    xInic = glider->nL - 4;
+    yInic = glider->nC - 4;
 
     for (i = 0; i < 3; i++)
         for (j = 0; j < 3; j++)
-            m[xInic + i][yInic + j] = padrao[i][j];
+            glider->m[xInic + i][yInic + j] = padrao[i][j];
 }
 
-void inicLWSS(int **m, int nL, int nC)
+void inicLWSS(Tabuleiro *LWSS)
 {
     int padrao[4][5] = {{VAZ, ORG, VAZ, VAZ, ORG}, 
                         {ORG, VAZ, VAZ, VAZ, VAZ}, 
@@ -68,12 +70,12 @@ void inicLWSS(int **m, int nL, int nC)
                         {ORG, ORG, ORG, ORG, VAZ}};
     int i, j, xInic, yInic;
 
-    limpaMatriz(m, nL, nC);
+    limpaMatriz(&LWSS);
 
-    xInic = nL - 5;
-    yInic = nC - 6;
+    xInic = LWSS->nL - 5;
+    yInic = LWSS->nC - 6;
 
     for (i = 0; i < 4; i++)
         for (j = 0; j < 5; j++)
-            m[xInic + i][yInic + j] = padrao[i][j];
+            LWSS->m[xInic + i][yInic + j] = padrao[i][j];
 }
