@@ -1,7 +1,8 @@
 #ifndef _FUNCOESDADAS_
 #define _FUNCOESDADAS_
+#include "funcoes.h"
 
-void limpaMatriz(int **m, int nL, int nC);
+void limpaMatriz(Tabuleiro *tab);
 void menuInicJogo(Tabuleiro*tab);
 void jogaJogoVida(Tabuleiro*tab);
 

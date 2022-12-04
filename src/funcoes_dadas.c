@@ -14,15 +14,15 @@
 #define ORG 1 // Organismo
 #define VAZ 0 // Vazio
 
-void limpaMatriz(Tabuleiro tab)
+void limpaMatriz(Tabuleiro *tab)
 {
     int i, j;
-    for (i = 0; i < tam.nL; i++)
-        for (j = 0; j < tam.nC; j++)
-            tab.m[i][j] = VAZ;
+    for (i = 0; i < tab->nl; i++)
+        for (j = 0; j < tab->nc; j++)
+            tab->m[i][j] = VAZ;
 }
 /*
-void menuInicJogo(int **mat, int nL, int nC)
+void menuInicJogo(int **mat, int nl, int nc)
 {
     int opcao;
 
@@ -31,23 +31,23 @@ void menuInicJogo(int **mat, int nL, int nC)
     switch (opcao)
     {
         case 1:
-            inicBloco(mat, nL, nC);
+            inicBloco(mat, nl, nc);
             break;
         case 2:
-            inicBlinker(mat, nL, nC);
+            inicBlinker(mat, nl, nc);
             break;
         case 3:
-            inicSapo(mat, nL, nC);
+            inicSapo(mat, nl, nc);
             break;
         case 4:
-            inicGlider(mat, nL, nC);
+            inicGlider(mat, nl, nc);
             break;
         case 5:
-            inicLWSS(mat, nL, nC);
+            inicLWSS(mat, nl, nc);
             break;
     }
 
-    imprimeMatriz(mat, nL, nC, 0, 0, 0);
+    imprimeMatriz(mat, nl, nc, 0, 0, 0);
 
     printf("Se inicializacao correta digite qualquer tecla para iniciar o jogo...");
     while (getchar() != '\n');
@@ -55,25 +55,27 @@ void menuInicJogo(int **mat, int nL, int nC)
 }
 */
 
-void jogaJogoVida(tab) // Jogo real
+void jogaJogoVida(Tabuleiro*tab) // Jogo real
 {
-    int **mAnt;
+    Tabuleiro proximoTab;
     int c;
 
     system("cls");
-    imprimeMatriz(mAtual, nL, nC, 0, 0, 0);
+    imprimeMatriz(*tab, 0, 0, 0);
     // getchar();
     Sleep(100);     //*========== Adaptar para win e linux
 
-    mAnt = alocaMatriz(nL, nC);
-    for (c = 1; c <= nCiclos; c++)
+    proximoTab = *tab;
+    alocaMatriz(tab);
+
+    for (c = 1; c <= tab->nciclos; c++)
     { 
-        copiaMatriz(mAnt, mAtual, nL, nC);
-        atualizaMat(mAtual, mAnt, nL, nC); //===== REGRAS do jogo
+        copiaMatriz(proximoTab.m, *tab);
+        atualizaMat(*tab, &proximoTab); //===== REGRAS do jogo
         system("cls");                      //====== Mudar para compatível com as duas plataformas
-        imprimeMatriz(mAtual, nL, nC, 0, 0, 0);
+        imprimeMatriz(*tab, 0, 0, 0);
         // getchar(); // Pausa a cada geração
         Sleep(100);
     }
-    desalocaMatriz(mAnt, nL);
+    desalocaMatriz(proximoTab.m, tab->nl);
 }

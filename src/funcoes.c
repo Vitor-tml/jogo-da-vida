@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "funcoes.h"
+#include "formas_de_vida.h"
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -18,7 +19,7 @@
 #define MORTO "\x1B[0;31m"
 #define VIVO "\x1B[0;32m"
 #define RESET "\x1B[0m"
-
+ 
 // Aloca uma matriz por valor passando o numero de linhas e colunas.
 void alocaMatriz(Tabuleiro*tab)
 {
@@ -42,7 +43,7 @@ void alocaMatriz(Tabuleiro*tab)
     }
 }
 // Desaloca uma matriz passando seu endereço e o numero de linhas
-void desalocaTabuleiro(Tabuleiro tab)
+void desalocaTabuleiro(Tabuleiro *tab)
 {
     int i;
 
@@ -65,7 +66,7 @@ void imprimeMatriz(Tabuleiro tab, int linhaDestaque, int colunaDestaque, int des
                 printf(VIVO);
             else
                 printf(MORTO);
-            printf(" %c ", tab->m[i][j] ? 'x' : 'o');
+            printf(" %c ", tab.m[i][j] ? 'x' : 'o');
             printf(RESET);
         }
         printf("\n");
@@ -85,19 +86,19 @@ int calculaVizinhos(Tabuleiro celula, int x, int y)
 {
     int vizinhos;
     int xmenos = (x != 0);
-    int xmais = (x != nl - 1);
+    int xmais = (x != celula.nl - 1);
     int ymenos = (y != 0);
-    int ymais = (y != nc - 1);
+    int ymais = (y != celula.nc - 1);
     vizinhos = celula.m[x - xmenos][y - ymenos] * (x != 0) * (y != 0) +
                celula.m[x - xmenos][y] * (x != 0) +
-               celula.m[x - xmenos][y + ymais] * (x != 0) * (y != nc - 1) +
+               celula.m[x - xmenos][y + ymais] * (x != 0) * (y != celula.nc - 1) +
 
                celula.m[x][y - ymenos] * (y != 0) +
-               celula.m[x][y + ymais] * (y != nc - 1) +
+               celula.m[x][y + ymais] * (y != celula.nc - 1) +
 
-               celula.m[x + xmais][y - ymenos] * (x != nl - 1) * (y != 0) +
-               celula.m[x + xmais][y] * (x != nl - 1) +
-               celula.m[x + xmais][y + ymais] * (x != nl - 1) * (y != nc - 1);
+               celula.m[x + xmais][y - ymenos] * (x != celula.nl - 1) * (y != 0) +
+               celula.m[x + xmais][y] * (x != celula.nl - 1) +
+               celula.m[x + xmais][y + ymais] * (x != celula.nl - 1) * (y != celula.nc - 1);
 
     return vizinhos;
 }
@@ -110,15 +111,15 @@ int sobrevivencia(int estado, int vizinhos)
         return (vizinhos == 3) ? 1 : 0;
 }
 // Aplica as regras do jogo no tabuleiro
-void atualizaMat(Tabuleiro tab, int **novaGeracao)
+void atualizaMat(Tabuleiro tab, Tabuleiro *novaGeracao)
 {
     int i, j, vizinhos;
 
-    for (i = 0; i < nl; i++)
-        for (j = 0; j < nc; j++)
+    for (i = 0; i < tab.nl; i++)
+        for (j = 0; j < tab.nc; j++)
         {
             vizinhos = calculaVizinhos(tab, i, j);
-            mAtual[i][j] = sobrevivencia(mAnt[i][j], vizinhos);
+            novaGeracao->m[i][j] = sobrevivencia(tab.m[i][j], vizinhos);
         }
 }
 // Frufruzinho para o inicio do game
@@ -137,7 +138,7 @@ void asciiArt()
 int estruturaMenu(Tabuleiro tab)
 {
     int opcaoMenu;
-    int nome[22];
+    char nome[22];
     int barra = 186;
     asciiArt();
 
@@ -149,7 +150,7 @@ int estruturaMenu(Tabuleiro tab)
     printf("%cn colunas = %d          %c\n", barra, tab.nc, barra);
     printf("%cn ciclos  = %d          %c\n", barra, tab.nciclos, barra);
     printf("%cTipo de padrao inicial:%c\n", barra, barra);
-    printf("%c%s%c", centerAlignText(nome, 22, barra, tab.nomeJogo, barra));
+    printf("%c%s%c", barra, centerAlignText(nome, 22, tab.nomeJogo), barra);
     printbarra(23, 3);
 
     printf("\n Escolha as opções de configuracao do Jogo da Vida.\n\n ");
@@ -159,9 +160,9 @@ int estruturaMenu(Tabuleiro tab)
     return opcaoMenu;
 }
 // Inicia padrões do jogo
-void menuInicJogo(Tabuleiro*tab)
+void menuInicJogo(Tabuleiro *tab)
 {
-    int tipodeVida, vida;
+    int tiposdeVida, vida;
     printf("\n=> Tipos de padrões iniciais disponíveis:\n\n");
     printf("\t(1) Vidas Paradas\n\t(2) Osciladores\n\t(3) Naves Espaciais\n\t(4) Voltar\n\nEntre com a opcao: ");
     scanf("%d", &tiposdeVida);
@@ -175,14 +176,15 @@ void menuInicJogo(Tabuleiro*tab)
         {
         case 1: // Opcao Bloco
             strcpy(tab->nomeJogo, "Bloco");
-            inicBloco(&tab);
+            inicBloco(tab);
             break;
         case 2: // Opcao Colmeia
             strcpy(tab->nomeJogo, "Colmeia");
-            inicBloco(&tab);
+            inicColmeia(tab);
             break;
         default: // Invalido
-            printf("Encolha inválida.\n") break;
+            printf("Encolha inválida.\n");
+            break;
         }
         break;
 
@@ -193,11 +195,11 @@ void menuInicJogo(Tabuleiro*tab)
         {
         case 1: //Opcao Blinker
             strcpy(tab->nomeJogo, "Blinker");
-            inicBlinker(&tab);
+            inicBlinker(tab);
             break;
         case 2: // Opcao Sapo
             strcpy(tab->nomeJogo, "Sapo");
-            inicBlinker(&tab);
+            inicSapo(tab);
             break;
         default: 
             printf("Escolha inválida.\n");
@@ -207,16 +209,16 @@ void menuInicJogo(Tabuleiro*tab)
 
     case 3: // Naves Espaciais
         printf("\n=> Escolha as opções de 'Naves Espaciais':\n\n\t(1) Glider\n\t(2) LightWeight\n\nEntre com a opcao: ");
-        scanf("%d", &opcao3);
-        switch (opcao3)
+        scanf("%d", &vida);
+        switch (vida)
         {
         case 1: // Opcao Glider
             strcpy(tab->nomeJogo, "Glinder");
-            inicBlinker(&tab);
+            inicGlider(tab);
             break;
         case 2: // Opcao LWSS
             strcpy(tab->nomeJogo, "LWSS");
-            inicBlinker(&tab);
+            inicLWSS(tab);
             break;
         default: 
             printf("Escolha inválida.\n");
@@ -255,8 +257,8 @@ const char *centerAlignText(char *field, unsigned int fieldWidth, const char *te
 void printbarra(int n, int tipo)
 {
     int i = 0;
-    int primeiro, segundo, barra = 205;
-    print(VIVO);
+    char primeiro, segundo, barra = 205;
+    printf(VIVO);
     if(tipo == 1)
     {
         primeiro = 201;
@@ -277,5 +279,5 @@ void printbarra(int n, int tipo)
         printf("%c", barra);
     printf("%c", segundo);
     printf("\n");
-    print(RESET);
+    printf(RESET);
 }

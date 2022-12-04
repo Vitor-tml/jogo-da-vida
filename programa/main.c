@@ -1,21 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h> // Verificar quais precisam estar aqui ou nao
+#include <stdlib.h>
+#include <string.h>
 #include "funcoes.h"
-#include "formas_de_vida.h"
 #include "funcoes_dadas.h"
-
-#ifdef _WIN32
-#include <Windows.h>
-#define LIMPA "cls"
-#else
-#include <unistd.h>
-#define LIMPA "clear"
-#endif
-
-#define ORG 1   // Organismo
-#define VAZ 0   // Vazio
-#define TAM 101 // Tamanho do nome do jogo.
-
+#include "formas_de_vida.h"
 
 int main()
 {
@@ -23,30 +11,30 @@ int main()
     int jogo = 1;       // Flag do loop do jogo
     Tabuleiro tab;
 
+    tab.nl = tab.nc = 15;
+    tab.nciclos = 50;
+    strcpy(tab.nomeJogo, "nenhum");
     alocaMatriz(&tab);
-
-    printf("Iniciando o Jogo da Vida");
-    Sleep();
     
     while (jogo)
     {
         system("clear"); // Coloar o LIMPA
         asciiArt();
 
-        menu = estruturaMenu(); // Mudar para struct
+        menu = estruturaMenu(tab); // Mudar para struct
 
         switch (menu)
         {
         case 1: /// Muda tamanho do tabuleiro
-            mudaTamanho(tab);
+            mudaTamanho(&tab);
         break;
 
         case 2: // Muda padrão de inicialização
-            menuInicJogo(tab);
+            menuInicJogo(&tab);
         break;
 
         case 3: // Entra no jogo
-            jogaJogoVida(tab);         
+            jogaJogoVida(&tab);         
         break;
 
         default:

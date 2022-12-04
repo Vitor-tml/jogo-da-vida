@@ -1,11 +1,15 @@
 #ifndef _FORMAS_DE_VIDA
 #define _FORMAS_DE_VIDA
+#ifndef _FUNCOES
+#include "funcoes.h"
+#endif
 
-void inicBloco(Tabuleiro*bloco);
-void inicColmeia(Tabuleiro*colmeia);
-void inicBlinker(Tabuleiro*blinker);
-void inicBlinker(Tabuleiro*sapo);
-void inicBlinker(Tabuleiro*glider);
-void inicBlinker(Tabuleiro*LWSS);
+
+void inicBlinker(Tabuleiro *blinker);
+void inicBloco(Tabuleiro *bloco);
+void inicColmeia(Tabuleiro *colmeia);
+void inicSapo(Tabuleiro *sapo);
+void inicGlider(Tabuleiro *glider);
+void inicLWSS(Tabuleiro *LWSS);
 
 #endif
