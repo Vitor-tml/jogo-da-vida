@@ -1,15 +1,6 @@
 #ifndef _FUNCOES_
 #define _FUNCOES_
 
-typedef struct tab // Testar se essa declaração com valor funciona
-{
-    char nomeJogo[TAM];
-    int ciclosVida;
-    int nl;
-    int nc;
-    int **m;
-} Tabuleiro;
-
 void alocaMatriz(Tabuleiro*tab)
 void desalocaMatriz(int **m, int nl); //  Exista um funcao desalocaTabuleiro em funcao.c
 void imprimeMatriz(Tabuleiro tab, int linhaDestaque, int colunaDestaque, int destaque);
@@ -24,5 +15,14 @@ void printbarra(int n, int tipo);
 int estruturaMenu(Tabuleiro tab);
 void menuInicJogo(Tabuleiro*tab); 
 void mudaTamanho(Tabuleiro*tab);
+
+typedef struct tab // Testar se essa declaração com valor funciona
+{
+    char nomeJogo[TAM];
+    int ciclosVida;
+    int nl;
+    int nc;
+    int **m;
+} Tabuleiro;
 
 #endif
