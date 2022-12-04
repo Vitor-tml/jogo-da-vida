@@ -20,7 +20,7 @@
 #define RESET "\x1B[0m"
 
 // Aloca uma matriz por valor passando o numero de linhas e colunas.
-void alocaMatriz(Tab tab)
+void alocaMatriz(Tabuleiro tab)
 {
     int i;
 
@@ -230,7 +230,6 @@ void menuInicJogo()
 // Edita tamanho do tabuleiro
 void mudaTamanho()
 {
-    int nl, ic, nciclos;
     printf("Insira o numero de linhas: ");
     scanf("%d", &nl);
     printf("Insira o numero de colunas: ");

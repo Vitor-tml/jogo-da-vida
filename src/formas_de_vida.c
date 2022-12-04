@@ -1,6 +1,6 @@
 #include "formas_de_vida.h"
 #include "funcoes_dadas.h"
-
+#include "funcoes.h"
 #define ORG 1 // Organismo
 #define VAZ 0 // Vazio
 
