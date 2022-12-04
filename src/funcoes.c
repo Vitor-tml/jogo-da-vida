@@ -134,7 +134,7 @@ void asciiArt()
     printf("               |___/                                           \n\n\n");
 }
 // Interface do inicio do jogo
-int estruturaMenu(Tab)
+int estruturaMenu(Tabuleiro tab)
 {
     int opcaoMenu;
     asciiArt();

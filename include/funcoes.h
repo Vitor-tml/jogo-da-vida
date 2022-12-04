@@ -20,7 +20,7 @@ typedef struct tab // Testar se essa declaração com valor funciona
     int ciclosVida = 50;
     int nl = 15;
     int nc = 15;
-    char **m;
+    int **m;
 } Tabuleiro;
 
 #endif

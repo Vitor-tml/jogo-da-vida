@@ -33,7 +33,7 @@ int main()
         system("clear"); // Coloar o LIMPA
         asciiArt();
 
-        menu = estruturaMenu(nl, nc, nc, nomePadrao); // Mudar para struct
+        menu = estruturaMenu(); // Mudar para struct
 
         switch (menu)
         {
