@@ -18,7 +18,9 @@ main:
 
 exe:
 	./bin/main.exe
-
+pastas:
+	mkdir ./bin
+	mkdir ./obj
 clear:
 	rm ./obj/funcoes.o
 	rm ./obj/funcoes_dadas.o
@@ -26,5 +28,3 @@ clear:
 	rm ./bin/main.exe
 	rmdir ./bin
 	rmdir ./obj
-	mkdir ./bin
-	mkdir ./obj
