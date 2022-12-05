@@ -59,7 +59,7 @@ void menuInicJogo(int **mat, int nl, int nc)
 
 void jogaJogoVida(Tabuleiro*tab) // Jogo real
 {
-    Tabuleiro proximoTab;
+    Tabuleiro tabAnterior;
     int c;
 
     system(LIMPA);
@@ -67,13 +67,13 @@ void jogaJogoVida(Tabuleiro*tab) // Jogo real
     // getchar();
     DORME
 
-    proximoTab = *tab;
-    alocaMatriz(&proximoTab);
+    tabAnterior = *tab;
+    alocaMatriz(&tabAnterior);
 
     for (c = 1; c <= tab->nciclos; c++)
     { 
-        copiaMatriz(&proximoTab, tab);      // primeiro recebe segundo
-        atualizaMat(*tab, &proximoTab);     //  segundo recebe proximo
+        copiaMatriz(&tabAnterior, tab);      // primeiro recebe segundo
+        atualizaMat(tabAnterior, tab);     //  segundo recebe proximo
         system(LIMPA);                      //====== Mudar para compatível com as duas plataformas
         imprimeMatriz(*tab, 0, 0, 0);
         // getchar(); // Pausa a cada geração
@@ -83,5 +83,5 @@ void jogaJogoVida(Tabuleiro*tab) // Jogo real
     getchar();
     while(getchar() != '\n')
     
-    desalocaMatriz(proximoTab.m, tab->nl);
+    desalocaMatriz(tabAnterior.m, tab->nl);
 }

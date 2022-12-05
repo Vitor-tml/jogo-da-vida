@@ -136,6 +136,7 @@ int estruturaMenu(Tabuleiro tab)
     int barra = 186;
 
     printbarra(23, 1);    
+    printf("%c         MENU          %c\n", barra, barra);
     printf("%c          DE           %c\n", barra, barra);
     printf("%c     CONFIGURACOES     %c\n", barra, barra);
     printbarra(23, 2);
@@ -146,7 +147,7 @@ int estruturaMenu(Tabuleiro tab)
     printf("%c%s  %c\n", barra, centerAlignText(nome, 22, tab.nomeJogo), barra);
     printbarra(23, 3);
 
-    printf("\n Escolha as opcoes de configuracao do Jogo da Vida.\n\n ");
+    printf("\nEscolha as opcoes de configuracao do Jogo da Vida.\n\n ");
     printf("\t(1) Mudar linhas, colunas e ciclos\n\t(2) Mudar padrao inicial\n\t(3) Iniciar Jogo\n\t(4) Sair");
     printf("\nEntre com a opcao: ");
     scanf("%d", &opcaoMenu);
