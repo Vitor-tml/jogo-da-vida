@@ -3,6 +3,7 @@
 #include "funcoes.h"
 #include "formas_de_vida.h"
 
+
 #ifdef _WIN32
 #include <Windows.h>
 #define LIMPA "cls"
@@ -43,13 +44,13 @@ void alocaMatriz(Tabuleiro*tab)
     }
 }
 // Desaloca uma matriz passando seu endereço e o numero de linhas
-void desalocaTabuleiro(Tabuleiro *tab)
+void desalocaMatriz(int **m, int nl)
 {
     int i;
 
-    for (i = 0; i < tab->nl; i++)
-        free(tab->m[i]);
-    free(tab->m);
+    for (i = 0; i < nl; i++)
+        free(m[i]);
+    free(m);
 }
 // Imprime X para as cẽlulas vivas, O para as cẽlulas mortar e muda a cor de fundo da linha/coluna destaque
 void imprimeMatriz(Tabuleiro tab, int linhaDestaque, int colunaDestaque, int destaque)
@@ -140,21 +141,20 @@ int estruturaMenu(Tabuleiro tab)
     int opcaoMenu;
     char nome[22];
     int barra = 186;
-    asciiArt();
 
     printbarra(23, 1);    
     printf("%c          DE           %c\n", barra, barra);
     printf("%c     CONFIGURACOES     %c\n", barra, barra);
     printbarra(23, 2);
-    printf("%cn linhas  = %d          %c\n", barra, tab.nl, barra);
-    printf("%cn colunas = %d          %c\n", barra, tab.nc, barra);
-    printf("%cn ciclos  = %d          %c\n", barra, tab.nciclos, barra);
+    printf("%cn linhas  = %d         %c\n", barra, tab.nl, barra);
+    printf("%cn colunas = %d         %c\n", barra, tab.nc, barra);
+    printf("%cn ciclos  = %d         %c\n", barra, tab.nciclos, barra);
     printf("%cTipo de padrao inicial:%c\n", barra, barra);
-    printf("%c%s%c", barra, centerAlignText(nome, 22, tab.nomeJogo), barra);
+    printf("%c%s  %c\n", barra, centerAlignText(nome, 22, tab.nomeJogo), barra);
     printbarra(23, 3);
 
-    printf("\n Escolha as opções de configuracao do Jogo da Vida.\n\n ");
-    printf("\t(1) Mudar linhas, colunas e ciclos\n\t(2) Mudar padrão inicial\n\t(3) Iniciar Jogo\n(4) Sair");
+    printf("\n Escolha as opçoes de configuracao do Jogo da Vida.\n\n ");
+    printf("\t(1) Mudar linhas, colunas e ciclos\n\t(2) Mudar padrao inicial\n\t(3) Iniciar Jogo\n\t(4) Sair");
     printf("\nEntre com a opcao: ");
     scanf("%d", &opcaoMenu);
     return opcaoMenu;
@@ -235,11 +235,11 @@ void menuInicJogo(Tabuleiro *tab)
 void mudaTamanho(Tabuleiro*tab)
 {
     printf("Insira o numero de linhas: ");
-    scanf("%d", tab->nl);
+    scanf("%d", &tab->nl);
     printf("Insira o numero de colunas: ");
-    scanf("%d", tab->nc);
+    scanf("%d", &tab->nc);
     printf("Insira o numero de ciclos: ");
-    scanf("%d", tab->nciclos);
+    scanf("%d", &tab->nciclos);
     printf("\n\n");
 }
 
