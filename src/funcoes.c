@@ -4,6 +4,14 @@
 #include "funcoes.h"
 #include "formas_de_vida.h"
 
+#ifdef _WIN32
+#include <Windows.h>
+#define DORME Sleep(1000);
+#else
+#include <unistd.h>
+#define DORME sleep(1);
+#endif
+
 #define ORG 1 // Organismo
 #define VAZ 0 // Vazio
 
@@ -169,15 +177,27 @@ void menuInicJogo(Tabuleiro *tab)
         switch (vida)
         {
         case 1: // Opcao Bloco
+            if(tab->nl < 2 || tab->nc < 2)
+            {
+                printf("\nTamanho de tabuleiro invalido.\n");
+                DORME
+                break;
+            }
             strcpy(tab->nomeJogo, "Bloco");
             inicBloco(tab);
             break;
         case 2: // Opcao Colmeia
+            if(tab->nl < 3 || tab->nc < 4)
+            {
+                printf("\nTamanho de tabuleiro invalido.\n");
+                DORME
+                break;
+            }
             strcpy(tab->nomeJogo, "Colmeia");
             inicColmeia(tab);
             break;
         default: // Invalido
-            printf("Encolha inválida.\n");
+            printf("Encolha invalida.\n");
             break;
         }
         break;
@@ -188,15 +208,27 @@ void menuInicJogo(Tabuleiro *tab)
         switch (vida)
         {
         case 1: //Opcao Blinker
+            if(tab->nl < 1 || tab->nc < 3)
+            {
+                printf("\nTamanho de tabuleiro invalido.\n");
+                DORME
+                break;
+            }
             strcpy(tab->nomeJogo, "Blinker");
             inicBlinker(tab);
             break;
         case 2: // Opcao Sapo
+            if(tab->nl < 2 || tab->nc < 4)
+            {
+                printf("\nTamanho de tabuleiro invalido.\n");
+                DORME
+                break;
+            }
             strcpy(tab->nomeJogo, "Sapo");
             inicSapo(tab);
             break;
         default: 
-            printf("Escolha inválida.\n");
+            printf("Escolha invalida.\n");
             break;
         }
         break;
@@ -207,15 +239,27 @@ void menuInicJogo(Tabuleiro *tab)
         switch (vida)
         {
         case 1: // Opcao Glider
+            if(tab->nl < 3 || tab->nc < 3)
+            {
+                printf("\nTamanho de tabuleiro invalido.\n");
+                DORME
+                break;
+            }
             strcpy(tab->nomeJogo, "Glinder");
             inicGlider(tab);
             break;
         case 2: // Opcao LWSS
+            if(tab->nl < 4 || tab->nc < 5)
+            {
+                printf("\nTamanho de tabuleiro invalido.\n");
+                DORME
+                break;
+            }
             strcpy(tab->nomeJogo, "LWSS");
             inicLWSS(tab);
             break;
         default: 
-            printf("Escolha inválida.\n");
+            printf("Escolha invalida.\n");
             break;
         }
         break;
@@ -228,6 +272,8 @@ void menuInicJogo(Tabuleiro *tab)
 // Edita tamanho do tabuleiro
 void mudaTamanho(Tabuleiro*tab)
 {
+    int i;
+    int nlAntigo = tab->nl;
     printf("Insira o numero de linhas: ");
     scanf("%d", &tab->nl);
     printf("Insira o numero de colunas: ");
@@ -235,6 +281,10 @@ void mudaTamanho(Tabuleiro*tab)
     printf("Insira o numero de ciclos: ");
     scanf("%d", &tab->nciclos);
     printf("\n\n");
+
+    for(i = 0; i < nlAntigo; i++)
+        tab->m[i] = (int *) realloc(tab->m[i], tab->nc * sizeof(int));
+    tab->m = (int **) realloc(tab->m, tab->nl * sizeof(int *));
 }
 
 const char *centerAlignText(char *field, unsigned int fieldWidth, const char *text)

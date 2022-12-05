@@ -24,3 +24,7 @@ clear:
 	rm .\obj\funcoes_dadas.o
 	rm .\obj\formas_de_vida.o
 	rm .\bin\main.exe
+	rmdir .\bin
+	rmdir .\obj
+	mkdir .\bin
+	mkdir .\obj
