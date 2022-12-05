@@ -9,7 +9,7 @@ criadas:
 	gcc -c ./src/funcoes.c -I ./include -o ./obj/funcoes.o
 
 dadas:
-	gcc -c ./src/funcoes_dadas.c ./obj/funcoes.o ./obj/formas_de_vida.o -I ./include -o ./obj/funcoes_dadas.o
+	gcc -c ./src/funcoes_dadas.c ./obj/funcoes.o -I ./include -o ./obj/funcoes_dadas.o
 
 formas:
 	gcc -c ./src/formas_de_vida.c ./obj/funcoes_dadas.o -I ./include -o ./obj/formas_de_vida.o
