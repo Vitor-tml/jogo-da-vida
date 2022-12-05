@@ -73,15 +73,18 @@ void imprimeMatriz(Tabuleiro tab, int linhaDestaque, int colunaDestaque, int des
         printf("\n");
     }
 }
-// Copia o tabuleiro em outra matriz
+// Copia o segundo tabuleiro no primeiro
 void copiaMatriz(Tabuleiro *m, Tabuleiro *tab)
 {
     int i, j;
+    int nl, nc;
+    
+    nl = (m->nl < tab->nl)? m->nl: tab->nl;
+    nc = (m->nc < tab->nc)? m->nc: tab->nc;
 
-    for (i = 0; i < tab->nl; i++)
-        for (j = 0; j < tab->nc; j++)
-           m->m[i][j] = tab->m[i][j];
-            
+    for (i = 0; i < nl; i++)
+        for (j = 0; j < nc; j++)
+            m->m[i][j] = tab->m[i][j];   
 }
 // Calcula as células vizinhas de tabuleiro[x][y].
 int calculaVizinhos(Tabuleiro celula, int x, int y)
@@ -234,7 +237,7 @@ void menuInicJogo(Tabuleiro *tab)
         break;
 
     case 3: // Naves Espaciais
-        printf("\n=> Escolha as opcoes de 'Naves Espaciais':\n\n\t(1) Glider\n\t(2) LightWeight\n\nEntre com a opcao: ");
+        printf("\nEscolha as opcoes de 'Naves Espaciais':\n\n\t(1) Glider\n\t(2) LightWeight\n\nEntre com a opcao: ");
         scanf("%d", &vida);
         switch (vida)
         {
@@ -273,18 +276,27 @@ void menuInicJogo(Tabuleiro *tab)
 void mudaTamanho(Tabuleiro*tab)
 {
     int i;
-    int nlAntigo = tab->nl;
+    int nl, nc, nciclos;
+    char nome[TAM];
+    Tabuleiro newTab;
     printf("Insira o numero de linhas: ");
-    scanf("%d", &tab->nl);
+    scanf("%d", &nl);
     printf("Insira o numero de colunas: ");
-    scanf("%d", &tab->nc);
+    scanf("%d", &nc);
     printf("Insira o numero de ciclos: ");
-    scanf("%d", &tab->nciclos);
+    scanf("%d", &nciclos);
     printf("\n\n");
+    newTab.nl = nl;
+    newTab.nc = nc;
+    newTab.nciclos = nciclos;
 
-    for(i = 0; i < nlAntigo; i++)
-        tab->m[i] = (int *) realloc(tab->m[i], tab->nc * sizeof(int));
-    tab->m = (int **) realloc(tab->m, tab->nl * sizeof(int *));
+    strcpy(nome, tab->nomeJogo);
+    alocaMatriz(&newTab);
+    copiaMatriz(&newTab, tab);
+    desalocaMatriz(tab->m, tab->nl);
+    *tab = newTab;
+    strcpy(tab->nomeJogo, nome);
+    tab->m = newTab.m;
 }
 
 const char *centerAlignText(char *field, unsigned int fieldWidth, const char *text)
