@@ -6,7 +6,9 @@
 #ifdef _WIN32
 #include <Windows.h>
 #define LIMPA "cls"
+#define DORME Sleep(1000);
 #else
+#define DORME sleep(1);
 #include <unistd.h>
 #define LIMPA "clear"
 #endif
@@ -60,22 +62,26 @@ void jogaJogoVida(Tabuleiro*tab) // Jogo real
     Tabuleiro proximoTab;
     int c;
 
-    system("cls");
+    system(LIMPA);
     imprimeMatriz(*tab, 0, 0, 0);
     // getchar();
-    Sleep(100);     //*========== Adaptar para win e linux
+    DORME
 
     proximoTab = *tab;
-    alocaMatriz(tab);
+    alocaMatriz(&proximoTab);
 
     for (c = 1; c <= tab->nciclos; c++)
     { 
-        copiaMatriz(proximoTab.m, *tab);
-        atualizaMat(*tab, &proximoTab); //===== REGRAS do jogo
-        system("cls");                      //====== Mudar para compatível com as duas plataformas
+        copiaMatriz(&proximoTab, tab);      // primeiro recebe segundo
+        atualizaMat(*tab, &proximoTab);     //  segundo recebe proximo
+        system(LIMPA);                      //====== Mudar para compatível com as duas plataformas
         imprimeMatriz(*tab, 0, 0, 0);
         // getchar(); // Pausa a cada geração
-        Sleep(100);
+        DORME
     }
+    printf("Aperte enter para sair.\n");
+    getchar();
+    while(getchar() != '\n')
+    
     desalocaMatriz(proximoTab.m, tab->nl);
 }

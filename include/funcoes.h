@@ -14,7 +14,7 @@ typedef struct tab // Testar se essa declaração com valor funciona
 void alocaMatriz(Tabuleiro*tab);
 void desalocaMatriz(int **m, int nl);
 void imprimeMatriz(Tabuleiro tab, int linhaDestaque, int colunaDestaque, int destaque);
-void copiaMatriz(int **m, Tabuleiro tab);
+void copiaMatriz(Tabuleiro *m, Tabuleiro *tab);
 void atualizaMat(Tabuleiro tab, Tabuleiro *novaGeracao);
 void asciiArt();
 void printbarra(int n, int tipo);

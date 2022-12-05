@@ -12,7 +12,7 @@ int main()
     Tabuleiro tab;
 
     tab.nl = tab.nc = 15;
-    tab.nciclos = 50;
+    tab.nciclos = 3;
     strcpy(tab.nomeJogo, "nenhum");
     alocaMatriz(&tab);
     

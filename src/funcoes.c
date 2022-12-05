@@ -1,16 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "funcoes.h"
 #include "formas_de_vida.h"
-
-
-#ifdef _WIN32
-#include <Windows.h>
-#define LIMPA "cls"
-#else
-#include <unistd.h>
-#define LIMPA "clear"
-#endif
 
 #define ORG 1 // Organismo
 #define VAZ 0 // Vazio
@@ -43,7 +35,7 @@ void alocaMatriz(Tabuleiro*tab)
         }
     }
 }
-// Desaloca uma matriz passando seu endereço e o numero de linhas
+// Desaloca uma matriz passando seu endereco e o numero de linhas
 void desalocaMatriz(int **m, int nl)
 {
     int i;
@@ -74,13 +66,14 @@ void imprimeMatriz(Tabuleiro tab, int linhaDestaque, int colunaDestaque, int des
     }
 }
 // Copia o tabuleiro em outra matriz
-void copiaMatriz(int **m, Tabuleiro tab)
+void copiaMatriz(Tabuleiro *m, Tabuleiro *tab)
 {
     int i, j;
 
-    for (i = 0; i < tab.nl; i++)
-        for (j = 0; j < tab.nc; j++)
-            m[i][j] = tab.m[i][j];
+    for (i = 0; i < tab->nl; i++)
+        for (j = 0; j < tab->nc; j++)
+           m->m[i][j] = tab->m[i][j];
+            
 }
 // Calcula as células vizinhas de tabuleiro[x][y].
 int calculaVizinhos(Tabuleiro celula, int x, int y)
@@ -146,31 +139,31 @@ int estruturaMenu(Tabuleiro tab)
     printf("%c          DE           %c\n", barra, barra);
     printf("%c     CONFIGURACOES     %c\n", barra, barra);
     printbarra(23, 2);
-    printf("%cn linhas  = %d         %c\n", barra, tab.nl, barra);
-    printf("%cn colunas = %d         %c\n", barra, tab.nc, barra);
-    printf("%cn ciclos  = %d         %c\n", barra, tab.nciclos, barra);
+    printf("%cn linhas  = %3d        %c\n", barra, tab.nl, barra);
+    printf("%cn colunas = %3d        %c\n", barra, tab.nc, barra);
+    printf("%cn ciclos  = %3d        %c\n", barra, tab.nciclos, barra);
     printf("%cTipo de padrao inicial:%c\n", barra, barra);
     printf("%c%s  %c\n", barra, centerAlignText(nome, 22, tab.nomeJogo), barra);
     printbarra(23, 3);
 
-    printf("\n Escolha as opçoes de configuracao do Jogo da Vida.\n\n ");
+    printf("\n Escolha as opcoes de configuracao do Jogo da Vida.\n\n ");
     printf("\t(1) Mudar linhas, colunas e ciclos\n\t(2) Mudar padrao inicial\n\t(3) Iniciar Jogo\n\t(4) Sair");
     printf("\nEntre com a opcao: ");
     scanf("%d", &opcaoMenu);
     return opcaoMenu;
 }
-// Inicia padrões do jogo
+// Inicia padroes do jogo
 void menuInicJogo(Tabuleiro *tab)
 {
     int tiposdeVida, vida;
-    printf("\n=> Tipos de padrões iniciais disponíveis:\n\n");
+    printf("\n=> Tipos de padroes iniciais disponiveis:\n\n");
     printf("\t(1) Vidas Paradas\n\t(2) Osciladores\n\t(3) Naves Espaciais\n\t(4) Voltar\n\nEntre com a opcao: ");
     scanf("%d", &tiposdeVida);
 
     switch (tiposdeVida)
     {
     case 1: // Vidas Paradas
-        printf("\n=> Escolha as opções de 'Vidas Paradas':\n\n\t(1) Bloco\n\t(2) Colmeia\n\nEntre com a opcao: ");
+        printf("\nEscolha as opcoes de 'Vidas Paradas':\n\n\t(1) Bloco\n\t(2) Colmeia\n\nEntre com a opcao: ");
         scanf("%d", &vida);
         switch (vida)
         {
@@ -189,7 +182,7 @@ void menuInicJogo(Tabuleiro *tab)
         break;
 
     case 2: // Osciladores
-        printf("\n=> Escolha as opções de 'Osciladores':\n\n\t(1) Blinker\n\t(2) Sapo\n\nEntre com a opcao: ");
+        printf("\n=> Escolha as opcoes de 'Osciladores':\n\n\t(1) Blinker\n\t(2) Sapo\n\nEntre com a opcao: ");
         scanf("%d", &vida);
         switch (vida)
         {
@@ -208,7 +201,7 @@ void menuInicJogo(Tabuleiro *tab)
         break;
 
     case 3: // Naves Espaciais
-        printf("\n=> Escolha as opções de 'Naves Espaciais':\n\n\t(1) Glider\n\t(2) LightWeight\n\nEntre com a opcao: ");
+        printf("\n=> Escolha as opcoes de 'Naves Espaciais':\n\n\t(1) Glider\n\t(2) LightWeight\n\nEntre com a opcao: ");
         scanf("%d", &vida);
         switch (vida)
         {
