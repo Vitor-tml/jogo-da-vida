@@ -20,6 +20,8 @@ void asciiArt();
 void printbarra(int n, int tipo);
 void menuInicJogo(Tabuleiro*tab); 
 void mudaTamanho(Tabuleiro*tab);
+void leCSV(Tabuleiro *tab, char nomeDoArquivo[TAM + 4]);
+void entradaArquivo(Tabuleiro *tab);
 int sobrevivencia(int estado, int vizinhos);
 int calculaVizinhos(Tabuleiro celula, int x, int y);
 int estruturaMenu(Tabuleiro tab);

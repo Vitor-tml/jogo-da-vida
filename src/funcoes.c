@@ -14,6 +14,7 @@
 
 #define ORG 1 // Organismo
 #define VAZ 0 // Vazio
+#define LINESIZE 1024
 
 // Códigos de escape ASCII para as cores
 #define SELEC "\x1B[46;1m"
@@ -159,7 +160,7 @@ int estruturaMenu(Tabuleiro tab)
     printbarra(23, 3);
 
     printf("\nEscolha as opcoes de configuracao do Jogo da Vida.\n\n ");
-    printf("\t(1) Mudar linhas, colunas e ciclos\n\t(2) Mudar padrao inicial\n\t(3) Iniciar Jogo\n\t(4) Sair");
+    printf("\t(1) Mudar linhas, colunas e ciclos\n\t(2) Mudar padrao inicial\n\t(3) Iniciar Jogo\n\t(4) Ler forma de arquivo\n\t(5) Sair\n");
     printf("\nEntre com a opcao: ");
     scanf("%d", &opcaoMenu);
     return opcaoMenu;
@@ -336,4 +337,55 @@ void printbarra(int n, int tipo)
     printf("%c", segundo);
     printf("\n");
     printf(RESET);
+}
+
+void leCSV(Tabuleiro *tab, char nomeDoArquivo[TAM + 4]) // Tamanho mais a extenção
+{
+    FILE *arquivo = fopen(nomeDoArquivo, "r");
+    char line[LINESIZE+1];
+    char *token;
+    int linha = 1, coluna;
+    if(arquivo == NULL)
+    {
+        printf("Abertura de arquivo invalida.\n");
+        getchar();
+        while(getchar() != '\n');
+        return;
+    }
+    
+    while(fgets(line, LINESIZE, arquivo))
+    {
+        if(linha > tab->nl)
+        {
+            printf("Tamanho de forma imcopativel.\n");
+            while(getchar() != '\n');
+            return;
+        }
+        token = strtok(line, ",");
+        coluna = atoi(token);
+        while (token)
+        {
+            if(coluna > tab->nc)
+            {
+                printf("Tamanho de forma incompativel.\n");
+                while(getchar() != '\n');
+                return;
+            }
+            tab->m[linha - 1][coluna - 1] = ORG;
+            token = strtok(NULL, ",");
+            coluna = atoi(token);
+        }
+        linha++;
+    }    
+    strcpy(tab->nomeJogo, nomeDoArquivo);
+    fclose(arquivo);
+}
+
+void entradaArquivo(Tabuleiro *tab)
+{
+    char nome[TAM + 4];
+    printf("Entre com o nome do arquivo: ");
+    scanf("%s", &nome); // testar se o nome não le caracter a mais
+    
+    leCSV(tab, nome);
 }

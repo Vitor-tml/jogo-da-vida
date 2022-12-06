@@ -5,6 +5,12 @@
 #include "funcoes_dadas.h"
 #include "formas_de_vida.h"
 
+#ifdef _WIN32
+#define LIMPA "cls"
+#else
+#define LIMPA "clear"
+#endif
+
 int main()
 {
     int menu;           // Opções do menu
@@ -18,7 +24,7 @@ int main()
     
     while (jogo)
     {
-        system("clear"); // Coloar o LIMPA
+        system(LIMPA); // Coloar o LIMPA
         asciiArt();
 
         menu = estruturaMenu(tab); // Mudar para struct
@@ -37,12 +43,16 @@ int main()
             jogaJogoVida(&tab);         
         break;
 
+        case 4: // Muda para entrada por CSV
+            entradaArquivo(&tab);
+        break;
+        
         default:
             printf("Saindo.\n");
             jogo = 0;
         break;
         }
     }
-
+    desalocaMatriz(tab.m, tab.nl);
     return 0;
 }
