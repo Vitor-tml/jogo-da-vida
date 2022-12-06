@@ -54,21 +54,21 @@ void desalocaMatriz(int **m, int nl)
     free(m);
 }
 // Imprime X para as cẽlulas vivas, O para as cẽlulas mortar e muda a cor de fundo da linha/coluna destaque
-void imprimeMatriz(Tabuleiro tab, int linhaDestaque, int colunaDestaque, int destaque)
+void imprimeMatriz(Tabuleiro *tab, int linhaDestaque, int colunaDestaque, int destaque)
 {
     int i, j;
 
-    for (i = 0; i < tab.nl; i++)
+    for (i = 0; i < tab->nl; i++)
     {
-        for (j = 0; j < tab.nc; j++)
+        for (j = 0; j < tab->nc; j++)
         {
             if ((i == linhaDestaque || j == colunaDestaque) && destaque)
                 printf(SELEC);
-            else if (tab.m[i][j])
+            else if (tab->m[i][j])
                 printf(VIVO);
             else
                 printf(MORTO);
-            printf(" %c ", tab.m[i][j] ? 'x' : 'o');
+            printf(" %c ", tab->m[i][j] ? 'x' : 'o');
             printf(RESET);
         }
         printf("\n");
@@ -141,7 +141,7 @@ void asciiArt()
     printf("               |___/                                           \n\n\n");
 }
 // Interface do inicio do jogo
-int estruturaMenu(Tabuleiro tab)
+int estruturaMenu(Tabuleiro *tab)
 {
     int opcaoMenu;
     char nome[22];
@@ -152,11 +152,11 @@ int estruturaMenu(Tabuleiro tab)
     printf("%c          DE           %c\n", barra, barra);
     printf("%c     CONFIGURACOES     %c\n", barra, barra);
     printbarra(23, 2);
-    printf("%cn linhas  = %3d        %c\n", barra, tab.nl, barra);
-    printf("%cn colunas = %3d        %c\n", barra, tab.nc, barra);
-    printf("%cn ciclos  = %3d        %c\n", barra, tab.nciclos, barra);
+    printf("%cn linhas  = %3d        %c\n", barra, tab->nl, barra);
+    printf("%cn colunas = %3d        %c\n", barra, tab->nc, barra);
+    printf("%cn ciclos  = %3d        %c\n", barra, tab->nciclos, barra);
     printf("%cTipo de padrao inicial:%c\n", barra, barra);
-    printf("%c%s  %c\n", barra, centerAlignText(nome, 22, tab.nomeJogo), barra);
+    printf("%c%s  %c\n", barra, centerAlignText(nome, 22, tab->nomeJogo), barra);
     printbarra(23, 3);
 
     printf("\nEscolha as opcoes de configuracao do Jogo da Vida.\n\n ");

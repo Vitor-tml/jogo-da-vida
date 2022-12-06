@@ -63,7 +63,7 @@ void jogaJogoVida(Tabuleiro*tab) // Jogo real
     int c;
 
     system(LIMPA);
-    imprimeMatriz(*tab, 0, 0, 0);
+    imprimeMatriz(tab, 0, 0, 0);
     // getchar();
     DORME
 
@@ -75,7 +75,7 @@ void jogaJogoVida(Tabuleiro*tab) // Jogo real
         copiaMatriz(&tabAnterior, tab);      // primeiro recebe segundo
         atualizaMat(tabAnterior, tab);     //  segundo recebe proximo
         system(LIMPA);                      //====== Mudar para compatível com as duas plataformas
-        imprimeMatriz(*tab, 0, 0, 0);
+        imprimeMatriz(tab, 0, 0, 0);
         // getchar(); // Pausa a cada geração
         DORME
     }

@@ -27,7 +27,7 @@ int main()
         system(LIMPA); // Coloar o LIMPA
         asciiArt();
 
-        menu = estruturaMenu(tab); // Mudar para struct
+        menu = estruturaMenu(&tab); // Mudar para struct
 
         switch (menu)
         {

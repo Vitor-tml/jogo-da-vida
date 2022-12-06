@@ -13,7 +13,7 @@ typedef struct tab // Testar se essa declaração com valor funciona
 
 void alocaMatriz(Tabuleiro*tab);
 void desalocaMatriz(int **m, int nl);
-void imprimeMatriz(Tabuleiro tab, int linhaDestaque, int colunaDestaque, int destaque);
+void imprimeMatriz(Tabuleiro *tab, int linhaDestaque, int colunaDestaque, int destaque);
 void copiaMatriz(Tabuleiro *m, Tabuleiro *tab);
 void atualizaMat(Tabuleiro tab, Tabuleiro *novaGeracao);
 void asciiArt();
@@ -24,7 +24,7 @@ void leCSV(Tabuleiro *tab, char nomeDoArquivo[TAM + 4]);
 void entradaArquivo(Tabuleiro *tab);
 int sobrevivencia(int estado, int vizinhos);
 int calculaVizinhos(Tabuleiro celula, int x, int y);
-int estruturaMenu(Tabuleiro tab);
+int estruturaMenu(Tabuleiro *tab);
 const char *centerAlignText(char *field, unsigned int fieldWidth, const char *text);
 
 #endif
