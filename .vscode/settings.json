@@ -1,7 +1,0 @@
-{
-    "C_Cpp.errorSquiggles": "Disabled",
-    "files.associations": {
-        "unistd.h": "c",
-        "windows.h": "c"
-    }
-}
